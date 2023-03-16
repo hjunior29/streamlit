@@ -82,7 +82,7 @@ def GRIEWANK(X):
     for I_COUNT in range(DIM):
         X_I = X[I_COUNT]
         SUM += (X_I ** 2) / 4000
-    PROD = np.cos(X_I / np.sqrt(X_I))
+    PROD = np.cos(X_I / np.sqrt(abs(X_I)))
     OF = SUM - PROD + 1
     return OF
 
@@ -158,10 +158,18 @@ def PLOT_BENCHMARK(X,FUNCTION,X_L, X_U):
                 Z[I, J] = EASOM(X)
             if FUNCTION == "MICHALEWICS":
                 Z[I, J] = MICHALEWICS(X)
-    fig = plt.figure()
-    plt.title(FUNCTION)
+    fig = plt.figure(figsize=(5, 5))
+    # plt.title(FUNCTION)
+    # ax.zaxis.set_major_formatter('{x:.0f}')
+
+    plt.rc('font', size=6)
     ax = plt.axes(projection='3d')
     ax.contour3D(A, B, Z, 100, cmap='jet')
-    ax.set_xlabel('x')
-    ax.set_ylabel('y')
-    ax.set_zlabel('z');
+    fig.set_facecolor('black')
+    ax.set_facecolor('black')
+    ax.tick_params(axis='x', colors='white')
+    ax.tick_params(axis='y', colors='white')
+    ax.tick_params(axis='z', colors='white')
+    # ax.set_xlabel('X')
+    # ax.set_ylabel('Y')
+    # ax.set_zlabel('Z');
